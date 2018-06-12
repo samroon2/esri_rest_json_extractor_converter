@@ -1,0 +1,118 @@
+
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+</head>
+<body>
+<div align="center">
+  <div class="entry">
+    <div class="entry">
+    <div style="position:relative;width:100%;height:100%;" id="mapid2" align="center"></div>
+    <link rel="stylesheet" href="https://ppete2.github.io/Leaflet.PolylineMeasure/Leaflet.PolylineMeasure.css" /> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/perliedman-leaflet-control-geocoder/1.5.7/Control.Geocoder.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/perliedman-leaflet-control-geocoder/1.5.7/Control.Geocoder.js"></script>
+    <script src="https://ppete2.github.io/Leaflet.PolylineMeasure/Leaflet.PolylineMeasure.js"></script>
+    <script src="./js/leaflet.ajax.min.js"></script>
+
+    <script>
+    var mymap = L.map('mapid2');
+
+    var tile_layer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                    {
+                        maxZoom: 18,
+                        minZoom: 1,
+                        continuousWorld: false,
+                        noWrap: false,
+                        attribution: 'Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
+                        detectRetina: false
+                        }
+                    );
+    var Esri_WorldImagery = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    }).addTo(mymap);
+    L.Control.geocoder({position:'topleft', showResultIcons:true}).addTo(mymap);
+    L.control.polylineMeasure(options).addTo(mymap);
+    var EsriData;
+    EsriData = L.geoJSON.ajax("./layers/layer1.geojson",{
+    onEachFeature: function (feature, layer) {
+        var popupContent = [];
+        // get layer properties
+        for (var key in feature.properties) {
+            popupContent.push(key + ": " + feature.properties[key]);
+        }
+        // bind properties to a popup adding new line for each property
+        layer.bindPopup(popupContent.join("<br/>"));
+    }}).addTo(mymap);
+
+    EsriData.on('data:loaded', function(){mymap.fitBounds(EsriData.getBounds());});
+
+    var layer_control = {
+    base_layers : { "Open Street Map" : tile_layer,"Esri Imagery":Esri_WorldImagery},
+    overlays : {"Exported Data":EsriData}
+    };
+
+        L.control.layers(
+            layer_control.base_layers,
+            layer_control.overlays,
+            {position: 'topright',
+             collapsed: true,
+             autoZIndex: true
+            }).addTo(mymap);
+
+                var options = {
+                position: 'topleft',                    // Position to show the control. Possible values are: 'topright', 'topleft', 'bottomright', 'bottomleft'
+                unit: 'metres',                         // Show imperial or metric distances. Values: 'metres', 'landmiles', 'nauticalmiles'
+                measureControlTitleOn: 'Turn on PolylineMeasure',   // Title for the control going to be switched on
+                measureControlTitleOff: 'Turn off PolylineMeasure', // Title for the control going to be switched off
+                measureControlLabel: '&#8614;',         // HTML to place inside the control
+                measureControlClasses: [],              // Classes to apply to the control
+                backgroundColor: '#8f8',                // Background color for control when selected
+                cursor: 'crosshair',                    // Cursor type to show when creating measurements
+                clearMeasurementsOnStop: true,          // Clear all the measurements when the control is unselected
+                showMeasurementsClearControl: false,    // Show a control to clear all the measurements
+                clearControlTitle: 'Clear Measurements',// Title text to show on the clear measurements control button
+                clearControlLabel: '&times',            // Clear control inner html
+                clearControlClasses: [],                // Collection of classes to add to clear control button
+                showUnitControl: false,                 // Show a control to change the units of measurements
+                tempLine: {                             // Styling settings for the temporary dashed line
+                    color: '#00f',                      // Dashed line color
+                    weight: 2                           // Dashed line weight
+                },          
+                fixedLine: {                            // Styling for the solid line
+                    color: '#006',                      // Solid line color
+                    weight: 2                           // Solid line weight
+                },
+                startCircle: {                          // Style settings for circle marker indicating the starting point of the polyline
+                    color: '#000',                      // Color of the border of the circle
+                    weight: 1,                          // Weight of the circle
+                    fillColor: '#0f0',                  // Fill color of the circle
+                    fillOpacity: 1,                     // Fill opacity of the circle
+                    radius: 3                           // Radius of the circle
+                },
+                intermedCircle: {                       // Style settings for all circle markers between startCircle and endCircle
+                    color: '#000',                      // Color of the border of the circle
+                    weight: 1,                          // Weight of the circle
+                    fillColor: '#ff0',                  // Fill color of the circle
+                    fillOpacity: 1,                     // Fill opacity of the circle
+                    radius: 3                           // Radius of the circle
+                },
+                currentCircle: {                        // Style settings for circle marker indicating the latest point of the polyline during drawing a line
+                    color: '#000',                      // Color of the border of the circle
+                    weight: 1,                          // Weight of the circle
+                    fillColor: '#f0f',                  // Fill color of the circle
+                    fillOpacity: 1,                     // Fill opacity of the circle
+                    radius: 3                           // Radius of the circle
+                },
+                endCircle: {                            // Style settings for circle marker indicating the last point of the polyline
+                    color: '#000',                      // Color of the border of the circle
+                    weight: 1,                          // Weight of the circle
+                    fillColor: '#f00',                  // Fill color of the circle
+                    fillOpacity: 1,                     // Fill opacity of the circle
+                    radius: 3                           // Radius of the circle
+                },
+            };
+            </script>
+    </div></div><br /></div>  
+</body>

@@ -1,5 +1,6 @@
 import requests
 from urllib.parse import urlparse
+from distutils.dir_util import copy_tree
 import simplejson as json
 import traceback
 import geopandas as gpd
@@ -32,10 +33,18 @@ class GetESRIJSON:
 			raise Exception("Please use a valid ESRI REST url")
 
 		parsedurl = urlparse(self.endpointurl)
+		print(f"{parsedurl.scheme}://{parsedurl.netloc}/arcgis/rest/services/?f=pjson")
 		req = requests.get(f"{parsedurl.scheme}://{parsedurl.netloc}/arcgis/rest/services/?f=pjson")
 
 		if req.status_code == 200:
-			return req.json()['currentVersion']
+			try:
+				return req.json()['currentVersion']
+			except KeyError:
+				try:
+					req = requests.get(self.endpointurl.split('services/')[0] + 'services/?f=pjson')
+					return req.json()['currentVersion']
+				except Exception as e:
+					raise e
 		raise Exception(f"An Error occured retrieving vital information, the response status {str(req.status_code)} associate with {req.json()['error']['message']}")	
 
 	def getrecordrange(self):
@@ -113,8 +122,24 @@ class GEOJSON(JSONDATA):
 	def __init__(self):
 		super().__init__()
 
+	def to_geojson(self, jsonfilename: str):
+		'''method for exporting data to a .json file'''
+		if self.featurecount() > 0:
+			with open(jsonfilename, "w") as outfile:
+				json.dump(self.json_data, outfile)
+		else:
+			print('No data to write to file.')
+
 	def to_leafletmap(self):
-		print()
+		'''method to create a basic leafley app to visualize data'''
+		if not os.path.exists('leaflet_map'):
+			copy_tree(os.path.dirname(os.path.abspath(__file__)) + '/leaflet_source', './leaflet_map')
+			if self.json_data['crs']['properties']['name'] != "EPSG:4326":
+				self.project_espg4326()
+				return 'Leaflet map successfully created in /leaflet_map - follow instructions.txt'
+			self.to_geojson('./leaflet_map/layers/layer1.geojson')
+			return 'Leaflet map successfully created in /leaflet_map - follow instructions.txt'
+		return 'dir /leaflet_map exists, please delete or rename'
 
 	def to_gdf(self):
 		'''method that converts geojson into a geopandas dataframe.. hacky temp method due to gpd not supporting the 
@@ -129,15 +154,20 @@ class GEOJSON(JSONDATA):
 		gdf = self.to_gdf()
 		gdf.to_file(driver='ESRI Shapefile', filename=shpname)
 
+	def project_espg4326(self):
+		'''method to reproject geojson for plotting in leaflet'''
+		df = self.to_gdf()
+		df_84 = df.to_crs({'init': 'epsg:4326'})
+		df_84.to_file('./leaflet_map/layers/layer1.geojson', driver='GeoJSON')
 
 def main():
 	esrijson = GetESRIJSON('http://arcgis4.roktech.net/arcgis/rest/services/Durham/query/MapServer/86/query')
 	print(esrijson.version)
-	esrijson.getshapefile('shape1.shp')
-	# esrijson.getgeojson()
+	esrijson.getgeojson()
 	# print(esrijson.geojson.featurecount())
 	#esrijson.geojson.to_json('file1.json')
 	#print(esrijson.geojson.to_shp('test1.shp'))
+	print(esrijson.geojson.to_leafletmap())
 	# print(esrijson.json_data.featurecount())
 
 if __name__ == '__main__':
