@@ -1,0 +1,5 @@
+tqdm==4.19.4
+Fiona==1.7.9
+requests==2.18.4
+geopandas==0.3.0
+pandas==0.22.0
