@@ -20,6 +20,10 @@ class BasicTests(unittest.TestCase):
     	version = esrijson.get_version()
     	assert isinstance(version, float)
 
+    def test_rangecheck(self):
+    	esrijson.get_recordrange()
+    	assert isinstance(esrijson.recordinfo, dict)
+    	self.assertNotEqual(len(esrijson.recordinfo), 0)
 
 if __name__ == "__main__":
     unittest.main()   
