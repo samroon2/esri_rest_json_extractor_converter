@@ -25,5 +25,9 @@ class BasicTests(unittest.TestCase):
     	assert isinstance(esrijson.recordinfo, dict)
     	self.assertNotEqual(len(esrijson.recordinfo), 0)
 
+    def test_getjson(self):
+    	esrijson.get_json()
+    	assert esrijson.json_data.feature_count() > 0
+
 if __name__ == "__main__":
     unittest.main()   

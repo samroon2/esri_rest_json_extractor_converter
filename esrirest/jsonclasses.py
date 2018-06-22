@@ -32,7 +32,7 @@ class JSONDATA:
             except Exception as e:
                 print(e)    
 
-    def featurecount(self):
+    def feature_count(self):
         '''Method that returns the number if features in the dataset.'''
         if len(self.json_data) > 0:
             return len(self.json_data['features'])
