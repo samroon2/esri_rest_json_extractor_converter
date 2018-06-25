@@ -29,5 +29,9 @@ class BasicTests(unittest.TestCase):
     	esrijson.get_json()
     	assert esrijson.json_data.feature_count() > 0
 
+    def test_getgeojson(self):
+    	esrijson.get_geojson()
+    	assert esrijson.geojson.feature_count() > 0
+
 if __name__ == "__main__":
     unittest.main()   
