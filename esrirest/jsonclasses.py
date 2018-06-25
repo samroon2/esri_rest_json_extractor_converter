@@ -44,14 +44,14 @@ class JSONDATA:
         :param jsonfilename: The name of the json file to be exported. eg: somefile.json 
         :type jsonfilename: str
         '''
-        if self.featurecount() > 0:
+        if self.feature_count() > 0:
             with open(jsonfilename, "w") as outfile:
                 json.dump(self.json_data, outfile)
         else:
             print('No data to write to file.')
 
 class GEOJSON(JSONDATA):
-    '''Class for manipulating GEOJSON
+    '''Class for manipulating GEOJSON.
     '''
 
     def __init__(self):
