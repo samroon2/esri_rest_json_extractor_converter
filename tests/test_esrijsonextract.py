@@ -2,8 +2,9 @@ import unittest
 import json
 import base64
 from esrirest import *
-import os.path 
- 
+import os.path
+
+
 esrijson = GetESRIJSON('http://arcgis4.roktech.net/arcgis/rest/services/Durham/query/MapServer/86/query')
 
 class BasicTests(unittest.TestCase):
