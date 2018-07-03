@@ -19,5 +19,11 @@ class BasicTests(unittest.TestCase):
         jsonn.setter(1, {'features':[{2:'test2'}]})
         assert len(jsonn.json_data['features']) == 2
 
+    def test_featurecount(self):
+        jsonn = JSONDATA()
+        jsonn.setter(0, {'features':[{1:'test'}]})
+        jsonn.setter(1, {'features':[{2:'test2'}]})
+        assert jsonn.feature_count() > 1
+
 if __name__ == "__main__":
     unittest.main()   
