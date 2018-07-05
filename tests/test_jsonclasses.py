@@ -2,7 +2,8 @@ import unittest
 import json
 import base64
 from esrirest import *
-import os.path 
+import os.path
+import os 
  
 esrijson = GetESRIJSON('http://arcgis4.roktech.net/arcgis/rest/services/Durham/query/MapServer/86/query')
 
@@ -24,6 +25,14 @@ class BasicTests(unittest.TestCase):
         jsonn.setter(0, {'features':[{1:'test'}]})
         jsonn.setter(1, {'features':[{2:'test2'}]})
         assert jsonn.feature_count() > 1
+
+    def test_tojson(self):
+        jsonn = JSONDATA()
+        jsonn.setter(0, {'features':[{1:'test'}]})
+        jsonn.setter(1, {'features':[{2:'test2'}]})
+        jsonn.to_json('unittest.json')
+        assert os.path.exists('unittest.json')
+        os.remove('unittest.json')
 
 if __name__ == "__main__":
     unittest.main()   
