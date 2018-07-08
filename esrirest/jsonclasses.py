@@ -55,7 +55,7 @@ class GEOJSON(JSONDATA):
     '''
 
     def __init__(self):
-        super().__init__()
+        super(GEOJSON, self).__init__()
 
     def to_geojson(self, jsonfilename: str):
         '''Method for exporting data to a .geojson file.
@@ -63,7 +63,7 @@ class GEOJSON(JSONDATA):
         :param jsonfilename: The name of the json file to be exported. eg: somefile.geojson
         :type jsonfilename: str
         '''
-        if self.featurecount() > 0:
+        if self.feature_count() > 0:
             with open(jsonfilename, "w") as outfile:
                 json.dump(self.json_data, outfile)
         else:

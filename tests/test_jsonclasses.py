@@ -34,5 +34,15 @@ class BasicTests(unittest.TestCase):
         assert os.path.exists('unittest.json')
         os.remove('unittest.json')
 
+    def test_geojson(self):
+        geojson = GEOJSON()
+        geojson.setter(0, {'features':[{1:'test'}]})
+        assert isinstance(geojson.json_data, dict)
+        geojson.setter(1, {'features':[{2:'test2'}]})
+        assert len(geojson.json_data['features']) == 2
+        geojson.to_geojson('testgeo.geojson')
+        assert os.path.exists('testgeo.geojson')
+        os.remove('testgeo.geojson')
+
 if __name__ == "__main__":
     unittest.main()   
