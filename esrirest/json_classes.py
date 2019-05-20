@@ -1,9 +1,7 @@
-from distutils.dir_util import copy_tree
-import geopandas as gpd
 import fiona
-import json
-import os
-
+import geopandas as gpd
+import os, json
+from distutils.dir_util import copy_tree
 
 class JSONDATA:
     '''Class for manipulating JSON.

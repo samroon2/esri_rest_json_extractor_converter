@@ -1,17 +1,16 @@
-import unittest
-import json
 import base64
+import os, json, sys
+import unittest
+
+testdir = os.path.dirname(__file__)
+srcdir = '../'
+sys.path.insert(0, os.path.abspath(os.path.join(testdir, srcdir)))
+
 from esrirest import *
-import os.path
-import os 
- 
+
 esrijson = GetESRIJSON('http://arcgis4.roktech.net/arcgis/rest/services/Durham/query/MapServer/86/query')
 
 class BasicTests(unittest.TestCase):
- 
-###############
-#### tests ####
-###############
 
     def test_setter(self):
         jsonn = JSONDATA()

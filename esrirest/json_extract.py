@@ -1,13 +1,12 @@
-import requests
-from urllib.parse import urlparse
-from distutils.dir_util import copy_tree
-from .jsonclasses import JSONDATA, GEOJSON
-import geopandas as gpd
-import pandas as pd
-from tqdm import tqdm
 import fiona
-import json
-import os
+import geopandas as gpd
+import os, json
+import pandas as pd
+import requests
+from distutils.dir_util import copy_tree
+from .json_classes import JSONDATA, GEOJSON
+from tqdm import tqdm
+from urllib.parse import urlparse
 
 
 class GetESRIJSON:
