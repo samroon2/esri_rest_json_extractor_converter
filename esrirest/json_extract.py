@@ -75,7 +75,7 @@ class GetESRIJSON:
             req = requests.get(self.endpontquerystr + qs)
             self.recordinfo = {'oidmin':0, 'oidmax':req.json()['count']}
 
-        [self.iterlist.append([x, x+999]) for x in range(self.recordinfo['oidmin'], self.recordinfo['oidmax'], 1000)]
+        [self.iterlist.append([x, x+999]) for x in range(self.recordinfo['oidmin'] if self.recordinfo['oidmin'] != self.recordinfo['oidmax'] else 1-self.recordinfo['oidmin'], self.recordinfo['oidmax'], 1000)]
 
     def get_geojson(self):
         '''Method for obtaining geojson data from rest endpoint.
