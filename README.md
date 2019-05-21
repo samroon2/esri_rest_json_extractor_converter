@@ -5,7 +5,7 @@ Project allows for simple extraction, transformation and visualization of spatia
 # Basic Usage
 
 # Extract and Transform Spatial Data
-Package allows for quick extraction and transformation into various other useful formats for geospatial analysis;
+Package allows for quick extraction and transformation into various other useful formats for geospatial analysis:
 - shapefiles (.shp)
 - json
 - geojson
