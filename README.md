@@ -6,11 +6,11 @@ Project allows for simple extraction, transformation and visualization of spatia
 
 # Extract and Transform Spatial Data
 Package allows for quick extraction and transformation into various other useful formats for geospatial analysis;
-- Shapefiles (.shp)
-- .json
-- .geojson
+- shapefiles (.shp)
+- json
+- geojson
 - geopandas dataframes
-- leaflet web application
+- leaflet web applications
 
 ```python
 Python 3.6.7 (default, Oct 22 2018, 11:32:17)
