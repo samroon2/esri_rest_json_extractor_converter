@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/samroon2/esri_rest_json_extractor_converter.svg?branch=master)](https://travis-ci.org/samroon2/esri_rest_json_extractor_converter)
+
 # esri_rest_json_extractor_converter
 A library that provides a simple interface to rapidly extract features from esri rest services and easily analyze, visualize and transform/convert extracted data to common spatial data types.
 
