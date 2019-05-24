@@ -7,7 +7,7 @@ A library that provides a simple interface to rapidly extract features from esri
 
 # Extract and Transform Spatial Data
 Package allows for quick extraction and transformation into various other useful formats for geospatial analysis:
-- shapefiles (.shp)
+### shapefiles (.shp)
 ```python
 Python 3.6.7 (default, Oct 22 2018, 11:32:17)
 [GCC 8.2.0] on linux
@@ -19,7 +19,7 @@ http://arcgis4.roktech.net/arcgis/rest/services/?f=pjson
 100%|█████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:01<00:00,  1.07s/it]
 >>> esrijson.geojson.to_shp('geo')
 ```
-- json
+### json
 ```python
 Python 3.6.7 (default, Oct 22 2018, 11:32:17)
 [GCC 8.2.0] on linux
@@ -31,7 +31,7 @@ http://arcgis4.roktech.net/arcgis/rest/services/?f=pjson
 100%|█████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:01<00:00,  1.07s/it]
 >>> esrijson.json.to_json('geo.json')
 ```
-- geojson
+### geojson
 ```python
 Python 3.6.7 (default, Oct 22 2018, 11:32:17)
 [GCC 8.2.0] on linux
@@ -43,7 +43,7 @@ http://arcgis4.roktech.net/arcgis/rest/services/?f=pjson
 100%|█████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:01<00:00,  1.07s/it]
 >>> esrijson.json.to_json('geo.json')
 ```
-- geopandas dataframes
+### geopandas dataframes
 From here there are many operations that can be done!
 ```python
 Python 3.6.7 (default, Oct 22 2018, 11:32:17)
@@ -65,7 +65,7 @@ http://arcgis4.roktech.net/arcgis/rest/services/?f=pjson
 
 [5 rows x 16 columns]
 ```
-- leaflet web applications
+### leaflet web applications
 ```python
 Python 3.6.7 (default, Oct 22 2018, 11:32:17)
 [GCC 8.2.0] on linux
