@@ -86,7 +86,8 @@ class GEOJSON(JSONDATA):
 
     def to_gdf(self):
         """Method that converts geojson into a geopandas dataframe.. hacky temp method due to gpd not supporting the 
-        ability to read geojson straight from memory from inital look."""
+        ability to read geojson straight from memory in a reliable way from inital look.
+        """
         self.to_json("temp1xyz.json")
         df = gpd.read_file("temp1xyz.json")
         os.remove("temp1xyz.json")
