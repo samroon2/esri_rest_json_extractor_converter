@@ -10,7 +10,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(testdir, srcdir)))
 from esrirest.json_extract import GetESRIJSON
 
 url = (
-    "http://arcgis4.roktech.net/arcgis/rest/services/Durham/hillshade/MapServer/0/query"
+        "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/BLS_Monthly_Unemployment_Current_14_Months/FeatureServer/1/query"
 )
 # url = 'http://arcgis4.roktech.net/arcgis/rest/services/DaytonaBeach/TRAKiT/MapServer/10/query'
 esrijson = GetESRIJSON(url)

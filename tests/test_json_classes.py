@@ -9,7 +9,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(testdir, srcdir)))
 from esrirest import *
 
 esrijson = GetESRIJSON(
-    "http://arcgis4.roktech.net/arcgis/rest/services/Durham/query/MapServer/86/query"
+        "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/BLS_Monthly_Unemployment_Current_14_Months/FeatureServer/1/query"
 )
 
 
